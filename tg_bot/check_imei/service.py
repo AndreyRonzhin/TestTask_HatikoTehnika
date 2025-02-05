@@ -1,4 +1,5 @@
 from typing import Any
+from django.conf import settings
 import re
 import requests
 import json
@@ -6,9 +7,9 @@ import json
 
 class IMEI:
 
-    __valid_formate = (r'\d{6}[-/.]\d{2}[-/.]\d{6}[-/.]\d{1}'
-                       r'|\d{2}[-/.]\d{4}[-/.]\d{2}[-/.]\d{6}[-/.]\d{1}'
-                       r'|\d{15}')
+    __valid_formate = (r'^\d{6}[-/.]\d{2}[-/.]\d{6}[-/.]\d{1}$'
+                       r'|^\d{2}[-/.]\d{4}[-/.]\d{2}[-/.]\d{6}[-/.]\d{1}$'
+                       r'|^\d{15}$')
     imei:str
 
     def __init__(self, imei:str):
@@ -78,6 +79,3 @@ class IMEICheckNet:
         content = json.loads(response.content.decode(response.encoding))
 
         return {'response': response, 'content': content}
-
-
-

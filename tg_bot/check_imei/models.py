@@ -1,4 +1,10 @@
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.conf import settings
+import telebot
+
+
 
 class BaseModel(models.Model):
     objects = models.Manager()
@@ -6,9 +12,9 @@ class BaseModel(models.Model):
         abstract = True
 
 class UserTgBot(BaseModel):
+    user_id = models.PositiveIntegerField(primary_key=True, editable=False,  verbose_name="ID", )
     name = models.CharField(max_length=255, verbose_name="Имя")
     username = models.CharField(max_length=255, verbose_name="Имя пользователя")
-    user_id = models.CharField(max_length=15, verbose_name="ID", )
     access_is_allowed = models.BooleanField(default=False)
 
     def __str__(self):
@@ -20,5 +26,15 @@ class UserTgBot(BaseModel):
         ]
         verbose_name = "Пользователь телеграмма"
         verbose_name_plural = "Пользователи телеграмма"
+
+
+@receiver(post_save, sender=UserTgBot)
+def post_save(sender, instance, **kwargs):
+    if sender == UserTgBot:
+        if instance.access_is_allowed:
+            bot = telebot.TeleBot(settings.TOKEN_TG_BOT)
+            bot.send_message(instance.user_id, "Вам разрешен доступ")
+
+
 
 
