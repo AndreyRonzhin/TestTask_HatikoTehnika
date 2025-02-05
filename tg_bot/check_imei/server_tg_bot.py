@@ -25,7 +25,7 @@ def check_user(user_tg):
                                             username=user_tg.username)
 
     if not obj_user.access_is_allowed:
-        bot.send_message(user_tg.id, "Вы не зарегистрированы, дождитесь проверки администратора")
+        bot.send_message(user_tg.id, "Вы не зарегистрированы, дождитесь проверки администратора.")
 
     return obj_user.access_is_allowed
 
@@ -34,7 +34,7 @@ def handle_start(message):
     if not check_user(message.from_user):
         return None
 
-    bot.send_message(message.from_user.id, "Привет, укажите IMEI устройства.")
+    bot.send_message(message.from_user.id, "Привет, введите IMEI устройства.")
 
 
 @bot.message_handler(commands=['help'])
@@ -78,3 +78,4 @@ def handle_check_imei(message):
 
 def start():
     bot.polling(none_stop=True, interval=0)
+

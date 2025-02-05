@@ -1,5 +1,4 @@
 from typing import Any
-from django.conf import settings
 import re
 import requests
 import json

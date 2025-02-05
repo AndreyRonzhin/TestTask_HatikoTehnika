@@ -33,8 +33,5 @@ def post_save(sender, instance, **kwargs):
     if sender == UserTgBot:
         if instance.access_is_allowed:
             bot = telebot.TeleBot(settings.TOKEN_TG_BOT)
-            bot.send_message(instance.user_id, "Вам разрешен доступ")
-
-
-
-
+            bot.send_message(instance.user_id, "Вам разрешен доступ.")
+            bot.send_message(instance.user_id, "Введите IMEI устройства.")

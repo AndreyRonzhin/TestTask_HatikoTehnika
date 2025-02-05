@@ -1,2 +1,3 @@
 /tg_bot/check_imei/migrations/
 /tg_bot/tg_bot/.env
+/tg_bot/db.sqlite3
